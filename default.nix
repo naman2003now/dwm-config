@@ -1,12 +1,14 @@
 { pkgs ? import <nixpkgs> {} }:
 pkgs.stdenv.mkDerivation {
-  buildInputs = with pkgs; [ gcc xorg.libX11 xorg.libXinerama xorg.libXft];
+  buildInputs = with pkgs; [ xorg.libX11 xorg.libXinerama xorg.libXft ];
   name = "dwm";
   version = "6.5";
   src = ./.;
-  buildPhase = "make";
+  buildPhase = ''
+    make
+  '';
   installPhase = ''
     mkdir -p $out/bin/
-    install -m755 dwm $out/bin/
+    mv dwm $out/bin/
   '';
 }
